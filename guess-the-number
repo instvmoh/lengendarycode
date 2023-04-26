@@ -1,0 +1,51 @@
+import random
+from art import logo
+
+#Number Guessing Game Objectives:
+
+# Include an ASCII art logo.
+# Allow the player to submit a guess for a number between 1 and 100.
+# Check user's guess against actual answer. Print "Too high." or "Too low." depending on the user's answer.
+# If they got the answer correct, show the actual answer to the player.
+# Track the number of turns remaining.
+# If they run out of turns, provide feedback to the player.
+# Include two different difficulty levels (e.g., 10 guesses in easy mode, only 5 guesses in hard mode).
+
+print(logo)
+print ("Bienvenue dans le jeu du Number guesser.")
+print ("Je pense à un nombre entre 1 et 100.")
+niveau = input(
+    "Avec quelle difficulté voulez-vous jouer ? Tape 'F' pour facile ou 'D' pour difficile' : "
+).lower()
+
+reponse = random.randint(1, 100)
+
+jouer = True
+
+if niveau == "f":
+    life = 10
+if niveau == "d":
+    life = 5
+print (f"Vous avez {life} vies, bonne chance !")
+
+
+def guess():
+    global jouer
+    global life
+    if nombre > reponse:
+        life -= 1
+        print(f"Trop haut, il vous reste {life} vies.")
+    if nombre < reponse:
+        life -= 1
+        print(f"Trop bas, il vous reste {life} vies.")
+    if nombre == reponse:
+        print(f"Vous avez gagné, la réponse était {reponse}.")
+        jouer = False
+    if life == 0:
+        print("Vous avez épuisé toutes vos vies, vous avez perdu.")
+        jouer = False
+
+
+while jouer:
+    nombre = int(input("Entrez un nombre entre 1 et 100 : "))
+    guess()
