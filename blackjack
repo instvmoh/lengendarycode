@@ -1,0 +1,96 @@
+from art import logo
+import random
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+jouer = True
+commencer = input("Voulez-vous jouer une partie de Blackjack ? 'y' ou 'n'. ")
+
+
+def nouvelle_carte():
+    score_user = sum(user)
+    user.append(random.choice(cards))
+    print(user)
+    new_score_user = sum(user)
+    print(
+        f"Vos cartes sont {user}, votre nouveau score est de {new_score_user}")
+    print(f"La première carte de l'ordinateur est {computer[0]}")
+    score_computer = sum(computer)
+
+
+def arreter_partie():
+    new_score_user = sum(user)
+    score_computer = sum(computer)
+    while score_computer < 17:
+        computer.append(random.choice(cards))
+        score_computer = sum(computer)
+    if score_computer > 21:
+        print(f"Le score de l'ordinateur est de {score_computer}.")
+        print("Vous avez gagné 1! ")
+        return
+    elif score_computer < 21:
+        if score_computer > new_score_user:
+            print(f"Le score de l'ordinateur est de {score_computer}.")
+            print("Vous avez perdu 4! ")
+            return
+        if score_computer < new_score_user:
+            print(f"Le score de l'ordinateur est de {score_computer}.")
+            print("Vous avez gagné 2! ")
+            return
+        if score_computer == new_score_user:
+            print(f"Le score de l'ordinateur est de {score_computer}.")
+            print("Egalité ! ")
+            return
+
+
+if commencer == "y":
+    print(logo)
+    user = random.choices(cards, k=2)
+    computer = random.choices(cards, k=2)
+    score_user = sum(user)
+    score_computer = sum(computer)
+    print(f"Vos cartes sont {user}, votre score est de {score_user}.")
+    print(f"La première carte de l'ordinateur est {computer[0]}. ")
+
+while jouer:
+    if score_user == 21:
+        print("Vous avez gagné 3! ")
+        jouer = False
+    if score_computer == 21:
+        print("Vous avez perdu 1! ")
+        jouer = False
+    if score_user > 21:
+        if 11 in user:
+            score_user -= 10
+            if score_user > 21:
+                print("Vous avez perdu 2! ")
+                jouer = False
+            if score_user > 21:
+                print("Vous avez perdu 3! ")
+                jouer = False
+            if score_user == 21:
+                print("Vous avez gagné 4! ")
+                jouer = False
+    if score_user < 21:
+        autre_carte = input(
+            "Voulez-vous piocher une autre carte ou passer ? 'y' ou 'n'. ")
+
+    if autre_carte == "y":
+        nouvelle_carte()
+        new_score_user = sum(user)
+        if new_score_user > 21:
+            print("Votre score est plus grand que 21, vous avez perdu ! ")
+            jouer = False
+        if new_score_user > 21:
+            if 11 in user:
+                new_score_user -= 10
+                if new_score_user > 21:
+                    print("Vous avez perdu 5! ")
+                    jouer = False
+        if new_score_user == 21:
+            print("Vous avez gagné 5! ")
+            jouer = False
+
+    if autre_carte == "n":
+        print(score_computer)
+        arreter_partie()
+        jouer = False
