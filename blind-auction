@@ -1,0 +1,28 @@
+from replit import clear
+from art import logo
+
+bidders = {}
+#HINT: You can call clear() to clear the output in the console.
+print(logo)
+
+
+def maximum():
+    highest_bid = max(bidders, key=bidders.get)
+    max_bid = bidders.get(highest_bid)
+    print(
+        f"L'enchère la plus grande est celle de {highest_bid} avec un montant de {max_bid}€"
+    )
+
+
+users = True
+while users:
+    name = input("Quel est votre nom ? ")
+    bid = input("Quelle est votre mise ? ")
+    bidders[name] = bid
+
+    continuer = input("Y a t'il d'autres participants ? ").lower()
+    if continuer == "non":
+        users = False
+        maximum()
+    elif continuer == "oui":
+        clear()
