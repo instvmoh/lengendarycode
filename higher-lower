@@ -1,0 +1,66 @@
+from art import logo, vs
+from game_data import data
+from replit import clear
+
+print(logo)
+import random
+
+score = 0
+bonne_reponse = True
+
+
+def choix_un():
+    global choice_un
+    choice_un = random.choice(data)
+    print('Compare A :', choice_un.get('name'), ', a',
+          choice_un.get('description'), 'from', choice_un.get('country'), '.')
+    followers_un = (choice_un.get('follower_count'))
+
+
+def choix_deux():
+    global choice_deux
+    choice_deux = random.choice(data)
+    print('Against B :', choice_deux.get('name'), ', a',
+          choice_deux.get('description'), 'from', choice_deux.get('country'),
+          '.')
+    followers_deux = (choice_deux.get('follower_count'))
+
+
+choix_un()
+
+print(vs)
+
+choix_deux()
+
+reponse = input("Who has more followers ? Type 'A' or 'B' : ").lower()
+
+while bonne_reponse:
+    if reponse == "a" and (choice_un.get('follower_count')) > (
+            choice_deux.get('follower_count')):
+        score += 1
+        print(f"You're right! Current score: {score}")
+        clear()
+        print (logo)
+        print('Compare A :', choice_un.get('name'), ', a',
+              choice_un.get('description'), 'from', choice_un.get('country'),
+              '.')
+        print(vs)
+        choix_deux()
+        reponse = input("Who has more followers ? Type 'A' or 'B' : ").lower()
+    elif reponse == "b" and (choice_un.get('follower_count')) < (
+            choice_deux.get('follower_count')):
+        score += 1
+        clear()
+        print (logo)
+        print(f"You're right! Current score: {score}")
+        print('Compare A :', choice_deux.get('name'), ', a',
+              choice_deux.get('description'), 'from',
+              choice_deux.get('country'), '.')
+        print(vs)
+        choix_deux()
+        reponse = input("Who has more followers ? Type 'A' or 'B' : ").lower()
+        clear()
+        print (logo)
+    else:
+        print(f"Sorry, that's wrong. Final score: {score}")
+        bonne_reponse = False
